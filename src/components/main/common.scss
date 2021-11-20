@@ -1,0 +1,69 @@
+
+.main {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calc-container {
+    max-width: 400px;
+    width: 40%;
+
+    button {
+        width: 100%;
+        background-color: grey;
+        color: white;
+        border: 1px solid black;
+        cursor: pointer;
+        font-size: 1.2rem;
+    }
+    button:hover {
+        opacity: .75;
+    }
+
+    * {
+        padding: .3em;
+    }
+
+    .oper {
+        background-color: rgb(77, 77, 77);
+    }
+}
+
+.calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+        "dis dis dis dis"
+        "AC AC div mul"
+        "seven eight nine minus"
+        "four five six plus"
+        "one two three equals"
+        "zero zero dot equals"
+    ;
+
+    #display-container {
+        grid-area: dis;
+        text-align: right;
+        background-color: black;
+        color: yellow;
+    }
+    #display {
+        font-size: 1.5rem;
+        color: white;
+    }
+    #clear {
+        grid-area: AC;
+        background-color: red;
+    }
+    #zero {
+        grid-area: zero;
+    }
+    #equals {
+        grid-area: equals;
+        height: 100%;
+        background-color: blue;
+    }
+}
