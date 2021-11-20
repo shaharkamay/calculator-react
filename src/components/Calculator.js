@@ -20,7 +20,7 @@ class Calculator extends React.Component {
         }
         if(char !== 'AC' && char !== '.' && isNaN(char)) {
             if(expression[expression.length - 1] === '.') return;
-            if(expression.length === 0) return;
+            if(char !== '-' && expression.length === 0) return;
             while(
                 expression[expression.length - 1] !== '.' 
                 && char !== '-'
