@@ -10,17 +10,40 @@ class Calculator extends React.Component {
         this.state = { expression: '', answer: '' };
     }
     display = (char) => {
+        let expression = this.state.expression;
         if(char === 'AC') {
             this.setState({ expression: '', answer: '' })
             return;
         }
-        const expression = this.cleanZeros(this.state.expression + char);
+        if(char === '-') {
+            if(expression[expression.length - 1] === '-') return;
+        }
+        if(char !== 'AC' && char !== '.' && isNaN(char)) {
+            if(expression[expression.length - 1] === '.') return;
+            while(
+                expression[expression.length - 1] !== '.' 
+                && char !== '-'
+                && isNaN(expression[expression.length - 1])
+                ) {
+                    expression = expression.substr(0, expression.length - 1);
+            }
+        }
+        if(char === '.') {
+            if(expression[expression.length - 1] === '.') return;
+            const reverseExpArr = expression.split('').reverse();
+            const index = reverseExpArr.findIndex(isNaN);
+            if(reverseExpArr[index] === '.') return;
+        }
+
+        expression = this.cleanZeros(expression + char);
         this.setState({ expression, answer: expression })
     }
     calculate = () => {
         this.setState({ answer: eval(this.state.expression) });
     }
-    cleanZeros = str => str.replace(/^0+(\d)/, '$1')
+
+    cleanZeros = str => str.replace(/^0+(\d)/, '$1');
+
     render() {
         return (
             <div className="calc-container calc-grid">
