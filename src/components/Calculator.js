@@ -20,11 +20,13 @@ class Calculator extends React.Component {
         }
         if(char !== 'AC' && char !== '.' && isNaN(char)) {
             if(expression[expression.length - 1] === '.') return;
+            if(expression.length === 0) return;
             while(
                 expression[expression.length - 1] !== '.' 
                 && char !== '-'
                 && isNaN(expression[expression.length - 1])
                 ) {
+                    console.log(expression)
                     expression = expression.substr(0, expression.length - 1);
             }
         }
@@ -36,10 +38,19 @@ class Calculator extends React.Component {
         }
 
         expression = this.cleanZeros(expression + char);
-        this.setState({ expression, answer: expression })
+        const answer = this.cleanZeros(this.state.answer + char);
+
+        if(char !== '.' && isNaN(char)) {
+            
+            this.setState({ expression, answer: '' });
+            return;
+        }
+
+        this.setState({ expression, answer })
     }
     calculate = () => {
-        this.setState({ answer: eval(this.state.expression) });
+        if(this.state.expression.length === 0) return;
+        this.setState({ expression: eval(this.state.expression).toString(), answer: eval(this.state.expression).toString() });
     }
 
     cleanZeros = str => str.replace(/^0+(\d)/, '$1');
